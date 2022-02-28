@@ -2,6 +2,12 @@
 
 ## Partie 1 - Les routes
 
+Vous pouvez mettre chacun de ces exercices dans le fichier
+`src/index.js`. Chaque exercices peut-être testé avec le fichier
+`request.http` :)
+
+N'hésitez pas à demander de l'aide au formateur !
+
 ### Exo 1
 
 Créer une route `GET /hello-world` qui retourne la chaîne de
