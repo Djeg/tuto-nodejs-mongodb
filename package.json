@@ -5,13 +5,14 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "David Jegat",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^3.27.2"
+    "fastify": "^3.27.2",
+    "nodemon": "^2.0.15"
   }
 }
