@@ -2,15 +2,66 @@ import fastify from 'fastify'
 
 const app = fastify({ logger: true })
 
-app.get('/hello/:name', {}, (request, reply) => {
-  request.method // GET
-  const name = request.params.name
-  const userAgent = request.headers.userAgent
+// EXO 1
+app.get('/hello-world', {}, () => {
+  return 'Bonjour tout le monde'
+})
 
-  reply.code(201)
-  reply.header('Techno', 'nodejs')
+// EXO 2
+app.get('/hello/:name', {}, (request, reply) => {
+  const name = request.params.name
 
   return 'Bonjour ' + name
+})
+
+// EXO 3
+app.get('/additionner/:x/:y', {}, request => {
+  return parseInt(request.params.x) + parseInt(request.params.y)
+})
+
+// EXO 4
+app.get('/calculer/:x/:y', {}, (request, reply) => {
+  const operation = request.headers.operation
+  const x = parseInt(request.params.x)
+  const y = parseInt(request.params.y)
+
+  if ('additionner' === operation) {
+    return x + y
+  }
+
+  if ('soustraire' === operation) {
+    return x - y
+  }
+
+  if ('multiplier' === operation) {
+    return x * y
+  }
+
+  reply.code(404)
+
+  return 'Veuillez préciser une opération'
+})
+
+// EXO 5
+app.get('/personnes', {}, request => {
+  const nameCriteria = request.query.name
+  const names = [
+    'john',
+    'jack',
+    'jane',
+    'jerome',
+    'jean',
+    'jule',
+    'justine',
+    'juliette',
+    'jeremy',
+  ]
+
+  if (!nameCriteria) {
+    return names
+  }
+
+  return names.filter(name => name.includes(nameCriteria))
 })
 
 app.post('/test', {}, () => {

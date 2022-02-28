@@ -18,3 +18,18 @@ Content-Type: application/json
   "email": "test@mail.com",
   "password": "test"
 }
+
+###
+
+GET http://localhost:4646/additionner/3/4
+
+###
+
+GET http://localhost:4646/calculer/3/4
+operation: multiplier
+
+###
+
+GET http://localhost:4646/personnes?name=ju
+
+
