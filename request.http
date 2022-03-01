@@ -2,6 +2,12 @@ GET http://localhost:4646/hello/rose
 User-Agent: firefox
 
 ###
+GET http://localhost:4646/books
+
+###
+GET http://localhost:4646/books/621df302524af2290953326a
+
+###
 
 POST http://localhost:4646/test
 

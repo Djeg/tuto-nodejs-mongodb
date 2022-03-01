@@ -1,93 +1,45 @@
 import fastify from 'fastify'
+import mongo from 'mongodb'
 
-const app = fastify({ logger: true })
+/**
+ * Definission d'un fonction de démarrage asynchrone
+ */
+async function start() {
+  // Création de l'application fastify
+  const app = fastify({ logger: true })
+  // On se connécte à notre cluster mongodb
+  const client = await mongo.MongoClient.connect(
+    'mongodb+srv://tutomongo:tutomongo@cluster0.kwadp.mongodb.net',
+  )
+  // On obtient la base de données
+  const db = client.db('test')
 
-// EXO 1
-app.get('/hello-world', {}, () => {
-  return 'Bonjour tout le monde'
-})
+  // Création d'une route qui récupére tout les livres
+  app.get('/books', {}, async () => {
+    // Récupération de plusieurs livre. Cette instruction
+    // nous retourne un tableaux de livre (un objet avec
+    // tout les champs du livre)
+    const livres = await db.collection('books').find().toArray()
 
-// EXO 2
-app.get('/hello/:name', {}, (request, reply) => {
-  const name = request.params.name
+    return livres
+  })
 
-  return 'Bonjour ' + name
-})
+  // Création d'une route qui récupére un seul livre
+  app.get('/books/:id', {}, async request => {
+    // On demande à un récupérer un seul livre
+    const livre = await db.collection('books').findOne({
+      // On récupére le livre par son ID. Attention
+      // à bien envoyé l'identifiant dans la fonction
+      // mongo.ObjectId
+      _id: mongo.ObjectId(request.params.id),
+    })
 
-// EXO 3
-app.get('/additionner/:x/:y', {}, request => {
-  return parseInt(request.params.x) + parseInt(request.params.y)
-})
+    // On retourne le livre
+    return livre
+  })
 
-// EXO 4
-app.get('/calculer/:x/:y', {}, (request, reply) => {
-  const operation = request.headers.operation
-  const x = parseInt(request.params.x)
-  const y = parseInt(request.params.y)
+  // On lance le serveur logique sur le port 4646
+  app.listen(4646, '0.0.0.0')
+}
 
-  if ('additionner' === operation) {
-    return x + y
-  }
-
-  if ('soustraire' === operation) {
-    return x - y
-  }
-
-  if ('multiplier' === operation) {
-    return x * y
-  }
-
-  reply.code(404)
-
-  return 'Veuillez préciser une opération'
-})
-
-// EXO 5
-app.get('/personnes', {}, request => {
-  const nameCriteria = request.query.name
-  const names = [
-    'john',
-    'jack',
-    'jane',
-    'jerome',
-    'jean',
-    'jule',
-    'justine',
-    'juliette',
-    'jeremy',
-  ]
-
-  if (!nameCriteria) {
-    return names
-  }
-
-  return names.filter(name => name.includes(nameCriteria))
-})
-
-app.post('/test', {}, () => {
-  return 'test post'
-})
-
-app.get('/pantalons', {}, request => {
-  const taille = request.query.taille
-
-  return [
-    {
-      id: 1,
-      name: 'super pantalon',
-      price: 25.8,
-    },
-    {
-      id: 2,
-      name: 'super pantalon 2',
-      price: 32.8,
-    },
-  ]
-})
-
-app.post('/users/token', {}, request => {
-  request.body.email
-  request.body.password
-})
-
-app.listen(4646, '0.0.0.0')
+start()
