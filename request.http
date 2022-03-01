@@ -5,6 +5,28 @@ User-Agent: firefox
 GET http://localhost:4646/books
 
 ###
+POST http://localhost:4646/books
+Content-Type: application/json
+
+{
+  "title": "Livre de test",
+  "description": "Livre de test"
+}
+
+###
+
+PATCH http://localhost:4646/books/621e2622c641b5ea5849999d
+Content-Type: application/json
+
+{
+  "title": "Titre modifié"
+}
+
+###
+
+DELETE http://localhost:4646/books/621e2622c641b5ea5849999d
+
+###
 GET http://localhost:4646/books/621df302524af2290953326a
 
 ###
