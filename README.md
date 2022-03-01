@@ -114,3 +114,66 @@ Créer un route `DELETE /books/:id`.
 
 On supprime le livre dans la base de donnée. Retourner le livre
 tout juste supprimer.
+
+## Exemple de requêtes RESTFull
+
+```
+
+Je veux récupérer les commentaires du pantalon n°10 (Collection)
+
+
+
+GET https://super-vetement.api.io/pantalons/10/commentaires (Collection / Document ?) (OK: Collection)
+                                 /pantalons
+                                    /10
+                                      /commentaires
+
+
+GET https://super-vetement.api.io/commentaires?pantalon=10
+                                 /commentaires (Collection)
+
+
+Je veux récupérer l'autheur du livre n°10 (Document)
+
+GET https://super-livre.api.io/auteurs?livre=10 (Pas OK)
+                              /auteurs (Collection)
+
+GET https://super-livre.api.io/auteurs/livres?id=10 (Pas Ok)
+                              /auteurs (Collection)
+                                /livres (Collection)
+
+GET https://super-livre.api.io/livres?id=10&auteur (Pas OK)
+                              /livres (Collection)
+
+GET https://super-livre.api.io/auteur/livre/10 (Pas OK)
+                              /auteur
+                                /livre
+                                  /10
+
+GET https://super-livre.api.io/livres/10?auteur (Pas Ok)
+                              /livres (Collection)
+                                /10 (Document)
+
+GET https://super-livre.api.io/livres/10/auteur (OK)
+                              /livres (Collection)
+                                /10 (Document)
+                                  /auteur (Document)
+
+Je veux ajouter un commentaire sur le pantalons n°5
+
+POST https://super-vetement.api.io/commentaires/pantalons/5 (Pas OK)
+                                  /commentaires (Collection)
+                                    /pantalons (Collection)
+                                      /5
+
+
+POST https://super-vetement.api.io/pantalons/5/commentaires (OK)
+                                  /pantalons (Collection)
+                                    /5 (Document)
+                                      /commentaires (Collection)
+
+
+PATCH https://super-vetement.api.io/pantalons/5 (OK)
+
+
+```
