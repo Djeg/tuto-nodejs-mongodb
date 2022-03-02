@@ -2,19 +2,26 @@ import fastify from 'fastify'
 import mongo from 'mongodb'
 import oas from 'fastify-oas'
 import bookRoutes from './routes/book-routes.js'
+import dotenv from 'dotenv'
+
+/**
+ * On lit les variables d'environement du fichier
+ * `.env`
+ */
+dotenv.config()
 
 /**
  * Definission d'un fonction de démarrage asynchrone
  */
 async function start() {
   // Création de l'application fastify
-  const app = fastify({ logger: true })
+  const app = fastify({
+    logger: process.env.VERBOSE === 'true',
+  })
   // On se connécte à notre cluster mongodb
-  const client = await mongo.MongoClient.connect(
-    'mongodb+srv://tutomongo:tutomongo@cluster0.kwadp.mongodb.net',
-  )
+  const client = await mongo.MongoClient.connect(process.env.MONGO_URL)
   // On obtient la base de données
-  const db = client.db('test')
+  const db = client.db(process.env.MONGO_DATABASE)
 
   /**
    * Permet d'accéder à la base de données depuis
@@ -28,11 +35,11 @@ async function start() {
     /**
      * Définie la route pour accéder à la documentation
      */
-    routePrefix: '/documentation',
+    routePrefix: process.env.API_DOC_PATH,
     /**
      * Active ou désactive la documentation
      */
-    exposeRoute: true,
+    exposeRoute: process.env.API_DOC === 'true',
     /**
      * Configure l'interface de documentation
      */
@@ -55,7 +62,7 @@ async function start() {
        */
       servers: [
         {
-          url: 'http://0.0.0.0:4646',
+          url: `http://${process.env.HOST}:${process.env.PORT}`,
           description: "Server de l'api",
         },
       ],
@@ -66,7 +73,7 @@ async function start() {
   app.register(bookRoutes)
 
   // On lance le serveur logique sur le port 4646
-  app.listen(4646, '0.0.0.0')
+  app.listen(process.env.PORT, process.env.HOST)
 }
 
 start()

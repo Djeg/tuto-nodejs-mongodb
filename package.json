@@ -12,6 +12,7 @@
   "author": "David Jegat",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "fastify": "^3.27.2",
     "fastify-oas": "^3.0.8",
     "fluent-json-schema": "^3.0.1",
