@@ -4,6 +4,7 @@ import {
   BookCollectionSchema,
   NewBookSchema,
 } from '../schemas/books-schema.js'
+import mongo from 'mongodb'
 
 /**
  * Un plugin fastify est une fonction asynchrone qui recois l'application
