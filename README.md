@@ -117,6 +117,11 @@ tout juste supprimer.
 
 ## Session 3 - Les schemas
 
+Pour faire ces exercices, tout d'abord installer `fluent-json-schema`.
+
+Ensuite créer un fichier `src/schemas/book-schemas.js`
+et placez tout vos schèmas à l'intérieur.
+
 ### Exo 1
 
 Définir le schéma suivant pour la route `POST /books`:
