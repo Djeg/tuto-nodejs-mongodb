@@ -10,7 +10,9 @@ import mongo from 'mongodb'
  * Un plugin fastify est une fonction asynchrone qui recois l'application
  * en premier paramètre et des options en second paramètre
  */
-export default async function bookRoutes(app) {
+export default async function bookController(app) {
+  const BookModel = app.BookModel
+
   // EXO 1
   // Création d'une route qui récupére tout les livres
   app.get(
@@ -23,12 +25,7 @@ export default async function bookRoutes(app) {
       },
     },
     async () => {
-      // Récupération de plusieurs livre. Cette instruction
-      // nous retourne un tableaux de livre (un objet avec
-      // tout les champs du livre)
-      const livres = await app.db.collection('books').find().toArray()
-
-      return livres
+      return BookModel.fetchAll()
     },
   )
 
@@ -45,12 +42,7 @@ export default async function bookRoutes(app) {
     },
     async request => {
       // On demande à un récupérer un seul livre
-      const livre = await app.db.collection('books').findOne({
-        // On récupére le livre par son ID. Attention
-        // à bien envoyé l'identifiant dans la fonction
-        // mongo.ObjectId
-        _id: mongo.ObjectId(request.params.id),
-      })
+      const livre = await BookModel.fetchOneById(request.params.id)
 
       // On retourne le livre
       return livre
@@ -72,11 +64,9 @@ export default async function bookRoutes(app) {
     async request => {
       const body = request.body
 
-      const result = await app.db.collection('books').insertOne(body)
+      const result = await BookModel.insertOne(book)
 
-      const livre = await app.db.collection('books').findOne({
-        _id: mongo.ObjectId(result.insertedId),
-      })
+      const livre = await BookModel.fetchOneById(result.insertedId)
 
       return livre
     },
@@ -97,13 +87,9 @@ export default async function bookRoutes(app) {
     async request => {
       const body = request.body
 
-      await app.db
-        .collection('books')
-        .updateOne({ _id: mongo.ObjectId(request.params.id) }, { $set: body })
+      await BookModel.updateOne(request.params.id, body)
 
-      const livre = await app.db.collection('books').findOne({
-        _id: mongo.ObjectId(request.params.id),
-      })
+      const livre = await BookModel.fetchOneById(request.params.id)
 
       return livre
     },
@@ -121,13 +107,9 @@ export default async function bookRoutes(app) {
       },
     },
     async request => {
-      const livre = await app.db.collection('books').findOne({
-        _id: mongo.ObjectId(request.params.id),
-      })
+      const livre = await BookModel.fetchOneById(request.params.id)
 
-      await app.db.collection('books').deleteOne({
-        _id: mongo.ObjectId(request.params.id),
-      })
+      await BookModel.deleteOne(request.params.id)
 
       return livre
     },
