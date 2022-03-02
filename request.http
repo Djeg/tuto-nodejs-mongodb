@@ -9,8 +9,10 @@ POST http://localhost:4646/books
 Content-Type: application/json
 
 {
-  "title": "Livre de test",
-  "description": "Livre de test"
+  "title": "dfhsdklfshdk",
+  "description": "sdhfsdklfhsdlkfhsdlk",
+  "price": 15.2,
+  "tags": ["science-fiction", "test"]
 }
 
 ###

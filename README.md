@@ -115,6 +115,57 @@ Créer un route `DELETE /books/:id`.
 On supprime le livre dans la base de donnée. Retourner le livre
 tout juste supprimer.
 
+## Session 3 - Les schemas
+
+### Exo 1
+
+Définir le schéma suivant pour la route `POST /books`:
+
+### body:
+
+| champ       | type   |
+| ----------- | ------ |
+| title       | string |
+| description | string |
+| price       | number |
+
+### response 200 :
+
+| champ                      | type   |
+| -------------------------- | ------ |
+| \_id                       | string |
+| +tout les champs plus haut |
+
+### Exo 2
+
+Définir le schéma suivant pour la route `GET /books`:
+
+### Response 200:
+
+Un tableaux de `book` définie plus haut
+
+### Exo 3
+
+Définir le schéma suivant pour la route `PATCH /books/:id`:
+
+### body:
+
+| champ                            | type |
+| -------------------------------- | ---- |
+| même que le POST mais non requis |
+
+### Response 200:
+
+Le book définie plus haut
+
+## Exo 4
+
+Définir le schèma suivant pour la route `DELETE /books/:id`:
+
+### Response 200:
+
+Un `book` définie plus haut
+
 ## Exemple de requêtes RESTFull
 
 ```

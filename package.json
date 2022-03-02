@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "fastify": "^3.27.2",
+    "fluent-json-schema": "^3.0.1",
     "mongodb": "^4.4.0",
     "nodemon": "^2.0.15"
   }
