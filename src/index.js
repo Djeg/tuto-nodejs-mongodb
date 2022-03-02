@@ -1,5 +1,6 @@
 import fastify from 'fastify'
 import mongo from 'mongodb'
+import oas from 'fastify-oas'
 import {
   UpdateBookSchema,
   BookSchema,
@@ -19,6 +20,46 @@ async function start() {
   )
   // On obtient la base de données
   const db = client.db('test')
+
+  // On enregistre le plugin OAS nous permettant d'avoir une documentation
+  // compléte de notre API
+  app.register(oas, {
+    /**
+     * Définie la route pour accéder à la documentation
+     */
+    routePrefix: '/documentation',
+    /**
+     * Active ou désactive la documentation
+     */
+    exposeRoute: true,
+    /**
+     * Configure l'interface de documentation
+     */
+    swagger: {
+      /**
+       * Définie les info générales de notre api
+       */
+      info: {
+        title: 'Book api',
+        description: 'Api de livres',
+      },
+      /**
+       * Définie ce que notre api recois comme format (consumes) et
+       * ce qu'elle retourne comme format (produces)
+       */
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      /**
+       * Configure le server de notre api
+       */
+      servers: [
+        {
+          url: 'http://0.0.0.0:4646',
+          description: "Server de l'api",
+        },
+      ],
+    },
+  })
 
   // EXO 1
   // Création d'une route qui récupére tout les livres
