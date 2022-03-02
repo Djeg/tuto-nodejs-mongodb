@@ -4,7 +4,7 @@
 
 - Cloner ou télécharger le projet
 - lance la commande `npm install`
-- Copier/Coller le fichier `.env.dist` en `.env` et éditer la configuration
+- Éditer le fichier `.env`
 - lancer la commande `npm start`
 
 ## Partie 1 - Les routes
