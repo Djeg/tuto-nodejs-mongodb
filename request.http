@@ -3,6 +3,7 @@ User-Agent: firefox
 
 ###
 GET http://localhost:4646/books
+Authorization: Bearer 
 
 ###
 POST http://localhost:4646/books
@@ -12,16 +13,18 @@ Content-Type: application/json
   "title": "dfhsdklfshdk",
   "description": "sdhfsdklfhsdlkfhsdlk",
   "price": 15.2,
-  "tags": ["science-fiction", "test"]
+  "author": {
+    "name": "J.K. Rowling"
+  }
 }
 
 ###
 
-PATCH http://localhost:4646/books/621f2cfecdda0e778cd8f9d5
+PATCH http://localhost:4646/books/621f474891c775de53558b02
 Content-Type: application/json
 
 {
-  "title": "Titre modifié"
+  "authorId": "6220bfb0f50bbc47bb8c535a"
 }
 
 ###
@@ -30,6 +33,39 @@ DELETE http://localhost:4646/books/621f441d0a095b5fa9502cae
 
 ###
 GET http://localhost:4646/books/621f2cdfcdda0e778cd8f9d4
+
+###
+
+GET http://localhost:4646/authors
+
+###
+
+POST http://localhost:4646/authors
+Content-Type: application/json
+
+{
+  "name": "J.K. Rowling"
+}
+
+###
+
+POST http://localhost:4646/users
+Content-Type: application/json
+
+{
+  "email": "john2@mail.com",
+  "password": "john"
+}
+
+###
+
+POST http://localhost:4646/users/token
+Content-Type: application/json
+
+{
+  "email": "john2@mail.com",
+  "password": "john"
+}
 
 ###
 

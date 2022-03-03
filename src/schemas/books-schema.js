@@ -1,4 +1,5 @@
 import S from 'fluent-json-schema'
+import { AuthorSchema } from './author-schema.js'
 
 /**
  * Définition du schèma pour une mise à jour d'un livre
@@ -8,6 +9,7 @@ export const UpdateBookSchema = S.object()
   .prop('title', S.string())
   .prop('description', S.string())
   .prop('price', S.number())
+  .prop('authorId', S.string())
 
 /**
  * Definition du schèma pour la création d'un livre
@@ -17,10 +19,11 @@ export const NewBookSchema = S.object()
   .extend(UpdateBookSchema)
 
 /**
- * Définition du schèma d'un livre
+ * Définition du schèma d'cun livre
  */
 export const BookSchema = S.object()
   .prop('_id', S.string().required())
+  .prop('authors', S.array().items(AuthorSchema))
   .extend(NewBookSchema)
 
 /**

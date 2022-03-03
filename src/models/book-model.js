@@ -23,10 +23,28 @@ export default async function bookModelPlugin(app) {
     }
 
     return collection
-      .find(findCriterias)
-      .sort({ [sort]: direction })
-      .limit(limit)
-      .skip(limit * (page - 1))
+      .aggregate([
+        {
+          $match: findCriterias,
+        },
+        {
+          $limit: limit,
+        },
+        {
+          $skip: limit * (page - 1),
+        },
+        {
+          $sort: { [sort]: direction },
+        },
+        {
+          $lookup: {
+            from: 'authors',
+            localField: 'authorId',
+            foreignField: '_id',
+            as: 'authors',
+          },
+        },
+      ])
       .toArray()
   }
 
@@ -43,14 +61,22 @@ export default async function bookModelPlugin(app) {
    * Insére un nouveau livre
    */
   async function insertOne(book) {
+    if (book.authorId) {
+      book.authorId = mongo.ObjectId(book.authorId)
+    }
+
     return collection.insertOne(book)
   }
 
   /**
    * Met à jour un livre
    */
-  async function updateOneById(id, update) {
-    return collection.updateOne({ _id: mongo.ObjectId(id) }, { $set: update })
+  async function updateOneById(id, book) {
+    if (book.authorId) {
+      book.authorId = mongo.ObjectId(book.authorId)
+    }
+
+    return collection.updateOne({ _id: mongo.ObjectId(id) }, { $set: book })
   }
 
   /**

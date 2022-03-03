@@ -27,6 +27,9 @@ export default async function bookController(app) {
       },
     },
     async request => {
+      // On s'assure que l'utilisateur soit authentifié:
+      await request.jwtVerify()
+
       return BookModel.fetchAll(request.query)
     },
   )
