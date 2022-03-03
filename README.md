@@ -198,7 +198,7 @@ Il faudra récupérer les critéres de recherche et les envoyé au book model.
 ### Partie 2
 
 Créer une valeur de configuration (variable d'environment) pour la limite
-pour défaut.
+par défaut.
 
 ## Exemple de requêtes RESTFull
 
