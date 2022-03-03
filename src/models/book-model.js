@@ -9,8 +9,25 @@ export default async function bookModelPlugin(app) {
   /**
    * Vas chercher tout les livres
    */
-  async function fetchAll() {
-    return collection.find().sort({ title: 1 }).limit(2).skip(2).toArray()
+  async function fetchAll({
+    limit = parseInt(process.env.DEFAULT_LIMIT),
+    page = 1,
+    sort = '_id',
+    direction = -1,
+    title = undefined,
+  }) {
+    const findCriterias = {}
+
+    if (title) {
+      findCriterias.title = new RegExp(title)
+    }
+
+    return collection
+      .find(findCriterias)
+      .sort({ [sort]: direction })
+      .limit(limit)
+      .skip(limit * (page - 1))
+      .toArray()
   }
 
   /**

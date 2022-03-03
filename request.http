@@ -2,7 +2,7 @@ GET http://localhost:4646/hello/rose
 User-Agent: firefox
 
 ###
-GET http://localhost:4646/books?limit=10&sort=price&direction=1
+GET http://localhost:4646/books
 
 ###
 POST http://localhost:4646/books

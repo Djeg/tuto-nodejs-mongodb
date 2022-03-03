@@ -27,8 +27,7 @@ export default async function bookController(app) {
       },
     },
     async request => {
-      request.query // Récupére toutes les query string
-      return BookModel.fetchAll()
+      return BookModel.fetchAll(request.query)
     },
   )
 

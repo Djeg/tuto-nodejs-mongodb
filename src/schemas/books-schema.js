@@ -33,5 +33,7 @@ export const BookCollectionSchema = S.array().items(BookSchema)
  */
 export const BookSearchCriteria = S.object()
   .prop('limit', S.number())
+  .prop('page', S.number())
   .prop('sort', S.string())
   .prop('direction', S.number())
+  .prop('title', S.string())
