@@ -10,7 +10,7 @@ export default async function bookModelPlugin(app) {
    * Vas chercher tout les livres
    */
   async function fetchAll() {
-    return collection.find().toArray()
+    return collection.find().sort({ title: 1 }).limit(2).skip(2).toArray()
   }
 
   /**

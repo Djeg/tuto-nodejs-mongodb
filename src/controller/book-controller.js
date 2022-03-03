@@ -3,6 +3,7 @@ import {
   BookSchema,
   BookCollectionSchema,
   NewBookSchema,
+  BookSearchCriteria,
 } from '../schemas/books-schema.js'
 import mongo from 'mongodb'
 
@@ -22,9 +23,11 @@ export default async function bookController(app) {
         response: {
           200: BookCollectionSchema,
         },
+        querystring: BookSearchCriteria,
       },
     },
-    async () => {
+    async request => {
+      request.query // Récupére toutes les query string
       return BookModel.fetchAll()
     },
   )

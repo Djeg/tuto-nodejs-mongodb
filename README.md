@@ -178,6 +178,28 @@ Définir le schèma suivant pour la route `DELETE /books/:id`:
 
 Un `book` définie plus haut
 
+## Session 4 - La recherche
+
+### Partie 1
+
+Ajouter la possibilité de filter la collection de livres (`GET /books`) avec les
+filtres suivant :
+
+| nom       | valeur par défaut |
+| --------- | ----------------- |
+| limit     | 25                |
+| page      | 1                 |
+| sort      | \_id              |
+| direction | -1                |
+| title     | NONE              |
+
+Il faudra récupérer les critéres de recherche et les envoyé au book model.
+
+### Partie 2
+
+Créer une valeur de configuration (variable d'environment) pour la limite
+pour défaut.
+
 ## Exemple de requêtes RESTFull
 
 ```

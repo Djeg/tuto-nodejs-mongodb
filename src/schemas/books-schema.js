@@ -27,3 +27,11 @@ export const BookSchema = S.object()
  * Définition du schèma d'une collection de livre
  */
 export const BookCollectionSchema = S.array().items(BookSchema)
+
+/**
+ * Définition des critères de recherche pour les livres
+ */
+export const BookSearchCriteria = S.object()
+  .prop('limit', S.number())
+  .prop('sort', S.string())
+  .prop('direction', S.number())
