@@ -41,11 +41,8 @@ export default async function bookController(app) {
       },
     },
     async request => {
-      // On demande à un récupérer un seul livre
-      const livre = await BookModel.fetchOneById(request.params.id)
-
       // On retourne le livre
-      return livre
+      return BookModel.fetchOneById(request.params.id)
     },
   )
 
@@ -64,7 +61,7 @@ export default async function bookController(app) {
     async request => {
       const body = request.body
 
-      const result = await BookModel.insertOne(book)
+      const result = await BookModel.insertOne(body)
 
       const livre = await BookModel.fetchOneById(result.insertedId)
 
@@ -87,7 +84,7 @@ export default async function bookController(app) {
     async request => {
       const body = request.body
 
-      await BookModel.updateOne(request.params.id, body)
+      await BookModel.updateOneById(request.params.id, body)
 
       const livre = await BookModel.fetchOneById(request.params.id)
 

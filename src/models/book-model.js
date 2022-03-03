@@ -23,7 +23,7 @@ export default async function bookModelPlugin(app) {
   }
 
   /**
-   * Insert un nouveau livre
+   * Insére un nouveau livre
    */
   async function insertOne(book) {
     return collection.insertOne(book)

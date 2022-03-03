@@ -17,12 +17,14 @@ const app = fastify({
   logger: process.env.VERBOSE === 'true',
 })
 
+// Enregistrement des plugins générale
 app.register(fp(dbPlugin))
 app.register(fp(apiDocPlugin))
 
+// Enregistrement des models
 app.register(fp(bookModelPlugin))
 
-// On enregistre le plugin des routes pour les livres
+// Enregistrement des controller
 app.register(bookController)
 
 // On lance le serveur logique sur le port 4646
