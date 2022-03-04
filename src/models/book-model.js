@@ -11,7 +11,7 @@ export default async function bookModelPlugin(app) {
    */
   async function fetchAll({
     limit = parseInt(process.env.DEFAULT_LIMIT),
-    page = 1,
+    page,
     sort = '_id',
     direction = -1,
     title = undefined,
@@ -23,29 +23,36 @@ export default async function bookModelPlugin(app) {
     }
 
     return collection
-      .aggregate([
-        {
-          $match: findCriterias,
-        },
-        {
-          $limit: limit,
-        },
-        {
-          $skip: limit * (page - 1),
-        },
-        {
-          $sort: { [sort]: direction },
-        },
-        {
-          $lookup: {
-            from: 'authors',
-            localField: 'authorId',
-            foreignField: '_id',
-            as: 'authors',
-          },
-        },
-      ])
+      .find(findCriterias)
+      .limit(limit)
+      .skip(limit * (page - 1))
+      .sort({ [sort]: direction })
       .toArray()
+
+    //return collection
+    //  .aggregate([
+    //    {
+    //      $match: findCriterias,
+    //    },
+    //    {
+    //      $limit: limit,
+    //    },
+    //    {
+    //      $skip: limit * (page - 1),
+    //    },
+    //    {
+    //      $sort: { [sort]: direction },
+    //    },
+    //    {
+    //      $lookup: {
+    //        from: 'authors',
+    //        localField: 'authorId',
+    //        foreignField: '_id',
+    //        as: 'authors',
+    //      },
+    //    },
+    //  ])
+    //  .toArray()
   }
 
   /**

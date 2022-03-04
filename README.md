@@ -262,3 +262,64 @@ PATCH https://super-vetement.api.io/pantalons/5 (OK)
 
 
 ```
+
+## Créer une API de TODO
+
+Faire une api de liste de chose à faire.
+
+Recomendation:
+
+- Créer une nouvelle application
+- Vous trouverez tout les librairies que nous avons utilisé
+  lors de la formation dans la section "dependencies" du
+  fichier [package.json](./package.json)
+
+### Créer un TODO (tache à faire)
+
+Graçe à la resource : `POST /todos`, pouvoir ajouter un todo
+avec les champs suivant :
+
+```
+label: string
+checked: boolean
+```
+
+### Lister les TODO
+
+Graçe à la resource : `GET /todos`, pouvoir lister
+les todos. Mettre en place les filtres suivant
+
+```
+limit: number
+page: number
+checked: boolean
+label: string
+```
+
+### Modifier et Supprimer un todo
+
+Graçe à `PATCH /todos/:id` et `DELETE /todos/:id` pouvoir
+mettre à jour et supprimer un todo.
+
+### Pouvoir creer un utilisateur
+
+Graçe à `POST /users`, pouvoir créer un utilisateur avec
+les champs suivant :
+
+```
+email: string
+password: string
+```
+
+Attention, le mot de passe doit être crypté en base de donnée !
+
+### Mettre en place un token d'authentification
+
+Graçe à `POST /token`, pouvoir générer un token
+JWT. (installer `fastify-jwt` et utilisé `app.jwt.sign`)
+
+### Protéger les routes `/todos`
+
+Faire en sorte que toutes les routes concernant les todos
+soit accesible **uniquement** aux utilisateur connécté
+via un token.
