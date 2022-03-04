@@ -1,3 +1,4 @@
+import S from 'fluent-json-schema'
 import {
   UpdateBookSchema,
   BookSchema,
@@ -43,6 +44,7 @@ export default async function bookController(app) {
         response: {
           200: BookSchema,
         },
+        params: S.object().prop('id', S.string().required()),
       },
     },
     async request => {

@@ -3,7 +3,7 @@ User-Agent: firefox
 
 ###
 GET http://localhost:4646/books
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwZGExODhmZTFlODJiOTc0YzFmYzIiLCJlbWFpbCI6ImpvaG4yQG1haWwuY29tIiwicGFzc3dvcmQiOiJjMzRmMmQ2M2IyNjczZWMwNTUxY2IxNzRiMmJiY2UyMjFhMzYwMjhkYjBjZGJhYzkxMDc5Mjk4Yzc4Y2Q3YThhIiwiaWF0IjoxNjQ2Mzg0ODg5fQ.n4WNxkKY266sf1uCBCIrBoYxLwND7dyAlAWfTZJZbMM
 
 ###
 POST http://localhost:4646/books
